@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "bot.token",
+      "type": "java.lang.String",
+      "description": "The token used to access the Discord API RESTful endpoints and establish a gateway connection if using WS."
+    }
+  ]
+}
