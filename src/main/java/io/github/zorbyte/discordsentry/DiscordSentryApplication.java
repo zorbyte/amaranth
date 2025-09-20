@@ -10,25 +10,25 @@ import io.github.cdimascio.dotenv.DotenvException;
 
 @SpringBootApplication
 public class DiscordSentryApplication {
-	private static final Logger log = LoggerFactory.getLogger(DiscordSentryApplication.class);
+  private static final Logger log = LoggerFactory.getLogger(DiscordSentryApplication.class);
 
-	public static void main(String[] args) {
-		try {
-			log.debug("Loading .env configuration(s)...");
+  public static void main(String[] args) {
+    try {
+      log.debug("Loading .env configuration(s)...");
 
-			Dotenv
-					.configure()
-					.systemProperties()
-					.load();
-		} catch (DotenvException e) {
-			// Shouldn't crash the app, Spring has many other ways for us to attempt the
-			// correct configs.
-			log.debug("An exception occurred while loading .env configuration(s): ", e);
-		}
+      Dotenv
+          .configure()
+          .systemProperties()
+          .load();
+    } catch (DotenvException e) {
+      // Shouldn't crash the app, Spring has many other ways for us to attempt the
+      // correct configs.
+      log.debug("An exception occurred while loading .env configuration(s): ", e);
+    }
 
-		new SpringApplicationBuilder(DiscordSentryApplication.class)
-				.bannerMode(Banner.Mode.OFF)
-				.build()
-				.run(args);
-	}
+    new SpringApplicationBuilder(DiscordSentryApplication.class)
+        .bannerMode(Banner.Mode.OFF)
+        .build()
+        .run(args);
+  }
 }
