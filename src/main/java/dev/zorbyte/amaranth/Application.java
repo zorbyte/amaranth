@@ -15,8 +15,6 @@ public class Application {
   public static void main(String[] args) {
     loadDotenv();
 
-    System.out.println(SystemProperties.get("SPRING_PROFILES_ACTIVE"));
-
     new SpringApplicationBuilder(Application.class)
         .bannerMode(Banner.Mode.OFF)
         .build()
