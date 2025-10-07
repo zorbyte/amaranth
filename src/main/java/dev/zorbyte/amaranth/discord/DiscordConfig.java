@@ -58,9 +58,15 @@ public class DiscordConfig {
   }
 
   @EventListener
+  // TODO: Investigate context started and friends to see best way to slot this
+  // into the application lifecycle.
   public void onApplicationEvent(ContextRefreshedEvent event) {
+    // We add the listener adapters to the JDA here so that we don't have circular
+    // calls from beans. Most logic in the application stems from JDA events calling
+    // it, so registering any listeners in the JDA's Bean declaration would make it
+    // very difficult to build our project, especially if any beans that need to
+    // inject JDA are in someway called from an event.
     Collection<ListenerAdapter> listenerAdapters = applicationContext.getBeansOfType(ListenerAdapter.class).values();
-
     this.jda.addEventListener(listenerAdapters.toArray());
   }
 }
