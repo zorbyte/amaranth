@@ -1,0 +1,12 @@
+debug: false
+spring:
+  profiles:
+    default: dev
+  application:
+    name: amaranth
+  docker:
+    compose:
+      enabled: false
+discord:
+  token: ${BOT_TOKEN}
+  status: "Say /ping"

@@ -10,10 +10,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>io.github.zorbyte</groupId>
-	<artifactId>discord-sentry</artifactId>
+	<groupId>dev.zorbyte</groupId>
+	<artifactId>amaranth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>discord-sentry</name>
+	<name>amaranth</name>
 	<description>Spring Boot Discord Bot</description>
 
 	<url/>
@@ -43,33 +43,57 @@
 			<artifactId>dotenv-java</artifactId>
 			<version>3.2.0</version>
 		</dependency>
+
 		<dependency>
-			<groupId>com.discord4j</groupId>
-			<artifactId>discord4j-core</artifactId>
-			<version>3.2.9</version>
+    	<groupId>net.dv8tion</groupId>
+    	<artifactId>JDA</artifactId>
+    	<version>6.0.0</version> <!-- replace $version with the latest version -->
+    	<!-- Optionally disable audio natives to reduce jar size by excluding `opus-java` and `tink` -->
+    	<exclusions>
+      <!-- required for encoding audio into opus, not needed if audio is already provided in opus encoding -->
+      	<exclusion>
+        	<groupId>club.minnced</groupId>
+          <artifactId>opus-java</artifactId>
+      	</exclusion> 
+        <!-- required for encrypting and decrypting audio -->
+      	<exclusion>
+      		<groupId>com.google.crypto.tink</groupId>
+        	<artifactId>tink</artifactId>
+     	  </exclusion>
+    	</exclusions>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-docker-compose</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<dependency>
+		  <groupId>org.projectlombok</groupId>
+		  <artifactId>lombok</artifactId>
+		  <version>1.18.42</version>
+		  <scope>provided</scope>
+	  </dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -81,13 +105,19 @@
 							<groupId>org.springframework.boot</groupId>
 							<artifactId>spring-boot-configuration-processor</artifactId>
 						</path>
+						<path>
+			  			<groupId>org.projectlombok</groupId>
+			  			<artifactId>lombok</artifactId>
+			  			<version>1.18.42</version>
+			  		</path>
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin> 
+			</plugin>
 		</plugins>
 	</build>
 

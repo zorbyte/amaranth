@@ -1,9 +1,17 @@
-{
-  "properties": [
-    {
-      "name": "bot.token",
-      "type": "java.lang.String",
-      "description": "The token used to access the Discord API RESTful endpoints and establish a gateway connection if using WS."
-    }
-  ]
-}
+{"properties": [
+  {
+    "name": "discord.token",
+    "type": "java.lang.String",
+    "description": "The token used to access the Discord API RESTful endpoints and establish a gateway connection if using WS."
+  },
+  {
+    "name": "discord.testGuildID",
+    "type": "java.lang.Long",
+    "description": "The ID of the guild to upload commands to during development.'"
+  },
+  {
+    "name": "discord.status",
+    "type": "java.lang.String",
+    "description": "The status to display under the bot user."
+  }
+]}
