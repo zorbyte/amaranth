@@ -1,9 +1,14 @@
 package dev.zorbyte.amaranth.features.tickets;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import dev.zorbyte.amaranth.discord.SlashCommand;
+import jakarta.transaction.Transactional;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.*;
@@ -11,6 +16,9 @@ import net.dv8tion.jda.api.interactions.commands.build.*;
 
 @Component
 public class TicketCommand implements SlashCommand {
+  @Autowired
+  private Tickets tickets;
+
   @Override
   public SlashCommandData data() {
     return Commands.slash("ticket", "Creates, configures, closes, and adds & removes users from tickets.")
@@ -18,10 +26,13 @@ public class TicketCommand implements SlashCommand {
         /* Create Command. */
 
         .addSubcommands(
-            new SubcommandData("create", "Presents a menu to help you quickly configure the ticket.").addOptions(
-                new OptionData(OptionType.USER, "user", "A user to auto-add to the ticket."),
-                new OptionData(OptionType.STRING, "template", "The template to use for the ticket.")
-                    .addChoice("Default", "default")))
+            new SubcommandData("get", "Gets a ticket.").addOption(OptionType.INTEGER, "id", "The ID of the ticket."),
+            new SubcommandData("create", "Presents a menu to help you quickly configure the ticket.")
+                // TODO: Make this go away, use modal.
+                .addOption(OptionType.STRING, "subject", "The subject of the ticket.", true).addOptions(
+                    new OptionData(OptionType.USER, "user", "A user to auto-add to the ticket."),
+                    new OptionData(OptionType.STRING, "template", "The template to use for the ticket.")
+                        .addChoice("Default", "default")))
 
         /* Close command. */
 
@@ -53,8 +64,42 @@ public class TicketCommand implements SlashCommand {
   }
 
   @Override
+  @Transactional
   public void handle(SlashCommandInteractionEvent event) {
-    String name = event.getInteraction().getName();
-    log.info("Command executed: {}", name);
+    log.info("Executing ticket command.");
+    event.deferReply().queue();
+    if (event.getSubcommandName().equals("create")) {
+      User user = event.getUser();
+      String subject = event.getOption("subject", () -> "Ticket by " + user.getName(), OptionMapping::getAsString);
+      Ticket t = new Ticket(subject);
+      t.setChannelId(event.getChannelIdLong());
+      t.setCreatorId(event.getUser().getIdLong());
+      t = tickets.save(t);
+      event.getHook().sendMessage("Ticket created with ID: " + t.getId()).queue();
+
+      return;
+    }
+
+    if (event.getSubcommandName().equals("get")) {
+      long id = event.getOption("id", OptionMapping::getAsLong);
+      if (id == 0L) {
+        event.getHook().sendMessage("No such ticket found with ID " + id).queue();
+        return;
+      }
+
+      Optional<Ticket> potentialTicket = tickets.findById(id);
+      if (potentialTicket.isEmpty()) {
+        event.getHook().sendMessage("No such ticket found with ID " + id).queue();
+        return;
+      }
+
+      Ticket ticket = potentialTicket.get();
+      event.getHook().sendMessage("Found ticket:\nCreator: <@" +
+          ticket.getCreatorId() + ">\nChannel: <#" + ticket.getChannelId() + ">\nSubject: `" + ticket.getSubject()
+          + "`").queue();
+      return;
+    }
+
+    event.getHook().sendMessage("Not implemented.");
   }
 }

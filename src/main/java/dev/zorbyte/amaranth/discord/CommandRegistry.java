@@ -28,13 +28,13 @@ public class CommandRegistry {
     /*
      * Bulk overwrite commands. This is now idempotent, so it is safe to use this
      * even when only 1 command is changed/added/removed.
-     * 
+     *
      * Block the main thread after this in order to keep the application alive.
      */
     final Guild guild = this.jda.getGuildById(guildID);
     guild.updateCommands().addCommands(requests).queue(
         _cmds -> log.info("Uploaded commands to discord guild ({}).", guildID),
-        e -> log.error("An error occurred while uploading commands to a discord guild ({}):\n {}", guildID, e));
+        e -> log.error("An error occurred while uploading commands to a discord guild ({}):", guildID, e));
   }
 
   public Optional<SlashCommand> getSlashCommand(String name) {

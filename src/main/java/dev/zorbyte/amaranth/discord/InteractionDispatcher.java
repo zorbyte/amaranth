@@ -25,7 +25,8 @@ public class InteractionDispatcher extends ListenerAdapter {
     try {
       cmd.handle(event);
     } catch (Exception e) {
-      log.error("An error occurred while dispatching a slash command {}", event.getName(), e);
+      log.error("An error occurred while dispatching a slash command:\n" + "\tinteractionCommandName={}"
+          + "\tcommandClassFound: {}", event.getName(), e);
     }
   }
 }

@@ -1,4 +1,4 @@
-package dev.zorbyte.amaranth.core;
+package dev.zorbyte.amaranth.features.base;
 
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package dev.zorbyte.amaranth.core;
+package dev.zorbyte.amaranth.features.base;
 
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ public class GreetCommand implements SlashCommand {
 
   @Override
   public void handle(SlashCommandInteractionEvent event) {
-    String name = event.getOption("name").getAsString();
+    String name = event.getOption("name").getAsString(); 
 
     // Reply to the slash command, with the name the user supplied
     event.reply("Hello, " + name).setEphemeral(true).queue();
