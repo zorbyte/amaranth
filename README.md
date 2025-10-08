@@ -9,7 +9,7 @@ I don't have much Java experience, but I tend to figure things out c:
 - [ ] A tickets system.
 - [ ] More to come (secrets c:)
 
-# Contributing
+## Contributing
 
 If you wish to contribute to the project, you should reach out to me on Discord @zorbyte.
 We have a board with design mock-ups, design plans, and the ability to allocate tasks via kanban.
