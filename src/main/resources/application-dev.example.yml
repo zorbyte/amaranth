@@ -1,0 +1,7 @@
+spring:
+  docker:
+    compose:
+      enabled: true
+      file: compose.dev.yml
+      readiness:
+        wait: ONLY_IF_STARTED

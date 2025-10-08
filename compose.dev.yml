@@ -1,20 +1,14 @@
 services:
-  database:
-    image: postgres:latest
+  postgresql:                          # This is the service name, important for Spring Boot to discover
+    image: postgres:18-alpine          # Using a lightweight PostgreSQL image
+    environment:
+      POSTGRES_DB: amaranth            # Database name
+      POSTGRES_USER: amaranth          # Database user
+      POSTGRES_PASSWORD: mypassword    # Database password
     ports:
-      - 15432:5432
-    env_file:
-      - .env
+      - "5432:5432"                    # Host_port:Container_port - maps container port 5432 to host port 5432
     volumes:
-      - ${PWD}/data/db/:/var/lib/postgresql/data/
-  
-  pgadmin:
-    image: dpage/pgadmin4
-    ports:
-      - 15433:80
-    env_file:
-      - .env
-    depends_on:
-      - database
-    volumes:
-      - ${PWD}/data/pgadmin/:/var/lib/pgadmin/
+      - postgresql:/var/lib/postgresql # Persist data to a named volume
+
+volumes:
+  postgresql:                          # Define the named volume

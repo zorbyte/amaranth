@@ -1,14 +1,17 @@
 package dev.zorbyte.amaranth.features.tickets;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
 
 @Entity
-@RequiredArgsConstructor
+@Data
 public class Ticket {
   @Id
-  @Getter
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+  private long creatorId;
+  private long channelId;
 }
