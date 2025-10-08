@@ -22,19 +22,22 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 @Slf4j
 @Configuration
 public class DiscordConfig {
-  private static EnumSet<GatewayIntent> GATEWAY_INTENTS = EnumSet.of(
+  private static EnumSet<GatewayIntent> ENABLED_GATEWAY_INTENTS = EnumSet.of(
       // Enables MessageReceivedEvent for guild (also known as servers)
       GatewayIntent.GUILD_MESSAGES,
       // Enables access to message.getContentRaw()
       GatewayIntent.MESSAGE_CONTENT);
 
+  // Removes warnings from the console that we don't have the intents enabled for
+  // these caches to be relevant.
   private static EnumSet<CacheFlag> DISABLED_CACHE_FLAGS = EnumSet.of(
-      CacheFlag.VOICE_STATE, CacheFlag.EMOJI, CacheFlag.STICKER, CacheFlag.SCHEDULED_EVENTS);
+      CacheFlag.VOICE_STATE, CacheFlag.EMOJI,
+      CacheFlag.STICKER, CacheFlag.SCHEDULED_EVENTS);
 
   @Value("${discord.token}")
   private String token;
 
-  @Value("${discord.status}")
+  @Value("${discord.activity}")
   private String status;
 
   @Autowired
@@ -45,8 +48,9 @@ public class DiscordConfig {
   @Bean
   JDA createDiscordAPI() {
     try {
-      this.jda = JDABuilder.createDefault(this.token, DiscordConfig.GATEWAY_INTENTS)
+      this.jda = JDABuilder.createDefault(this.token)
           .setActivity(Activity.customStatus(this.status))
+          .setEnabledIntents(ENABLED_GATEWAY_INTENTS)
           .disableCache(DISABLED_CACHE_FLAGS)
           .build();
 

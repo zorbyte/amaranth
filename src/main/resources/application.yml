@@ -9,4 +9,4 @@ spring:
       enabled: false
 discord:
   token: ${BOT_TOKEN}
-  status: "Say /ping"
+  activity: "Say /ping"

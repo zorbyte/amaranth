@@ -10,7 +10,7 @@
     "description": "The ID of the guild to upload commands to during development.'"
   },
   {
-    "name": "discord.status",
+    "name": "discord.activity",
     "type": "java.lang.String",
     "description": "The status to display under the bot user."
   }
