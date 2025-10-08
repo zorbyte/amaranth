@@ -18,7 +18,7 @@ public class ReadyListener extends ListenerAdapter {
   private long testGuildID = 0L;
 
   @Autowired
-  Environment env;
+  private Environment env;
 
   @Autowired
   private CommandRegistry commandRegistry;

@@ -1,12 +1,22 @@
 debug: false
 spring:
-  profiles:
-    default: dev
   application:
     name: amaranth
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_URL}:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  main:
+    banner-mode: OFF
   docker:
     compose:
       enabled: false
+  profiles:
+    default: dev
 discord:
+  testGuildID: ${TEST_GUILD_ID}
   token: ${BOT_TOKEN}
   activity: "Say /ping"

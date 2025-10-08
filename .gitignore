@@ -40,3 +40,5 @@ build/
 
 .logs
 .evfevent
+
+application-dev.yml

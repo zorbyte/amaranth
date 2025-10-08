@@ -19,7 +19,9 @@
 	<url/>
 
 	<licenses>
-		<license/>
+	  <license>
+      <name>AGPL-v3</name>
+    </license>
 	</licenses>
 
 	<developers>
@@ -54,7 +56,7 @@
       	<exclusion>
         	<groupId>club.minnced</groupId>
           <artifactId>opus-java</artifactId>
-      	</exclusion> 
+      	</exclusion>
         <!-- required for encrypting and decrypting audio -->
       	<exclusion>
       		<groupId>com.google.crypto.tink</groupId>
@@ -69,31 +71,48 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-docker-compose</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
 		  <groupId>org.projectlombok</groupId>
 		  <artifactId>lombok</artifactId>
 		  <version>1.18.42</version>
 		  <scope>provided</scope>
 	  </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+	  <dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-devtools</artifactId>
+	    <scope>runtime</scope>
+	  </dependency>
+
+	  <dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-data-jpa</artifactId>
+	  </dependency>
+
+	  <dependency>
+	    <groupId>org.postgresql</groupId>
+	    <artifactId>postgresql</artifactId>
+	    <scope>runtime</scope>
+	  </dependency>
+
+  	<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-docker-compose</artifactId>
+		  <scope>runtime</scope>
+		  <optional>true</optional>
+	  </dependency>
+
+    <dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-test</artifactId>
+		  <scope>test</scope>
+	  </dependency>
+
+	  <dependency>
+	    <groupId>org.testcontainers</groupId>
+	    <artifactId>junit-jupiter</artifactId>
+	    <scope>test</scope>
+	  </dependency>
+  </dependencies>
 	<build>
 		<plugins>
 			<plugin>
@@ -101,10 +120,10 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<annotationProcessorPaths>
-						<path>
+						<!-- <path>
 							<groupId>org.springframework.boot</groupId>
 							<artifactId>spring-boot-configuration-processor</artifactId>
-						</path>
+						</path> -->
 						<path>
 			  			<groupId>org.projectlombok</groupId>
 			  			<artifactId>lombok</artifactId>
