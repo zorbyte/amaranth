@@ -30,20 +30,25 @@ public class TicketCommand implements SlashCommand {
         .addSubcommands(
             new SubcommandData("get", "Gets a ticket.").addOption(OptionType.INTEGER, "id", "The ID of the ticket."),
             new SubcommandData("create", "Presents a menu to help you quickly configure the ticket.")
-                // TODO: Make this go away, use modal.
-                .addOption(OptionType.STRING, "subject", "The subject of the ticket.", true).addOptions(
+                // TODO: We will use modals to get the subject of the ticket.
+                .addOption(OptionType.STRING, "subject", "The subject of the ticket.", true)
+                .addOptions(
                     new OptionData(OptionType.USER, "user", "A user to auto-add to the ticket."),
                     new OptionData(OptionType.STRING, "template", "The template to use for the ticket.")
-                        .addChoice("Default", "default")))
+                        .addChoice("Default", "default")
+                )
+        )
 
         /* Close command. */
 
-        .addSubcommands(new SubcommandData("close", "Close a ticket.")
-            // If the user doesn't specify a ticket channel to close, we'll attempt to close
-            // the ticket in the current channel if present. If no such ticket exists, a
-            // modal will be summoned so that the ticket to be closed can be selected by the
-            // user instead of erroring out (good UI/UX moment).
-            .addOption(OptionType.CHANNEL, "channel", "The ticket channel to close."))
+        .addSubcommands(
+            new SubcommandData("close", "Close a ticket.")
+                // If the user doesn't specify a ticket channel to close, we'll attempt to close
+                // the ticket in the current channel if present. If no such ticket exists, a
+                // modal will be summoned so that the ticket to be closed can be selected by the
+                // user instead of erroring out (good UI/UX moment).
+                .addOption(OptionType.CHANNEL, "channel", "The ticket channel to close.")
+        )
 
         /* User commands. */
 
@@ -58,8 +63,14 @@ public class TicketCommand implements SlashCommand {
                 /* Remove user command. */
 
                 new SubcommandData("remove", "Removes a user from a ticket.")
-                    .addOption(OptionType.USER, "user", "The user to remove from the ticket.",
-                        true)))
+                    .addOption(
+                        OptionType.USER,
+                        "user",
+                        "The user to remove from the ticket.",
+                        true
+                    )
+            )
+        )
 
         .setContexts(InteractionContextType.GUILD)
         .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MANAGE_CHANNEL));
@@ -68,6 +79,8 @@ public class TicketCommand implements SlashCommand {
   @Override
   @Transactional
   public void handle(SlashCommandInteractionEvent event) {
+    // FIXME: Fix this massive abomination to not be awful.
+    // Most of this is jsut test code anyway.
     log.info("Executing ticket command.");
     event.deferReply().queue();
     if (event.getSubcommandName().equals("create")) {
@@ -96,9 +109,17 @@ public class TicketCommand implements SlashCommand {
       }
 
       Ticket ticket = potentialTicket.get();
-      event.getHook().sendMessage("Found ticket:\nCreator: <@" +
-          ticket.getCreatorId() + ">\nChannel: <#" + ticket.getChannelId() + ">\nSubject: `" + ticket.getSubject()
-          + "`").queue();
+      event.getHook()
+          .sendMessage(
+              "Found ticket:\nCreator: <@" +
+                  ticket.getCreatorId()
+                  + ">\nChannel: <#"
+                  + ticket.getChannelId()
+                  + ">\nSubject: `"
+                  + ticket.getSubject()
+                  + "`"
+          )
+          .queue();
       return;
     }
 
