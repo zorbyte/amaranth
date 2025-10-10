@@ -1,4 +1,4 @@
-package dev.zorbyte.amaranth.core.command;
+package dev.zorbyte.amaranth.command;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

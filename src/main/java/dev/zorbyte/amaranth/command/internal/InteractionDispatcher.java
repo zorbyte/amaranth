@@ -1,11 +1,10 @@
-package dev.zorbyte.amaranth.core.command.internal;
+package dev.zorbyte.amaranth.command.internal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import dev.zorbyte.amaranth.core.command.BaseSlashCommand;
-import dev.zorbyte.amaranth.core.command.CommandRegistrar;
+import dev.zorbyte.amaranth.command.BaseSlashCommand;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;

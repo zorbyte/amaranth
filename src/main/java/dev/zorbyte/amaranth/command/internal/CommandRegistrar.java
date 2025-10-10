@@ -1,4 +1,4 @@
-package dev.zorbyte.amaranth.core.command;
+package dev.zorbyte.amaranth.command.internal;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.zorbyte.amaranth.command.BaseSlashCommand;
+import dev.zorbyte.amaranth.command.SlashCommand;
+import dev.zorbyte.amaranth.command.SlashCommandName;
 import io.micrometer.common.lang.Nullable;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +17,7 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 @Slf4j
 @Service
-public class CommandRegistrar {
+class CommandRegistrar {
   @Autowired
   private JDA jda;
 
@@ -30,7 +33,7 @@ public class CommandRegistrar {
    * This is now idempotent, so it is safe to use this even when only 1 command is
    * changed/added/removed.
    */
-  public void uploadGuildSlashCommands(long guildID) {
+  void uploadGuildSlashCommands(long guildID) {
     final List<SlashCommandData> requests = slashCommands.stream().map(SlashCommand::data).toList();
 
     jda.getGuildById(guildID)
@@ -48,7 +51,7 @@ public class CommandRegistrar {
    * This is now idempotent, so it is safe to use this even when only 1 command is
    * changed/added/removed.
    */
-  public void uploadGlobalSlashCommands() {
+  void uploadGlobalSlashCommands() {
     log.info("Uploading global application commands to Discord...");
     final List<SlashCommandData> requests = slashCommands.stream().map(SlashCommand::data).toList();
 

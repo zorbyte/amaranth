@@ -1,9 +1,9 @@
-package dev.zorbyte.amaranth.modules.tickets.commands.user;
+package dev.zorbyte.amaranth.tickets.commands.user;
 
 import org.springframework.stereotype.Component;
 
-import dev.zorbyte.amaranth.core.command.SlashCommand;
-import dev.zorbyte.amaranth.core.command.SlashCommandName;
+import dev.zorbyte.amaranth.command.SlashCommand;
+import dev.zorbyte.amaranth.command.SlashCommandName;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 

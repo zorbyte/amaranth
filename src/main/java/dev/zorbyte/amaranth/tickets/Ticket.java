@@ -1,4 +1,4 @@
-package dev.zorbyte.amaranth.modules.tickets.domain;
+package dev.zorbyte.amaranth.tickets;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package dev.zorbyte.amaranth.core;
+package dev.zorbyte.amaranth.bot.internal;
 
 import java.time.Duration;
 import java.util.EnumSet;

@@ -1,9 +1,9 @@
-package dev.zorbyte.amaranth.modules.tickets;
+package dev.zorbyte.amaranth.tickets.internal;
 
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import dev.zorbyte.amaranth.modules.tickets.domain.AddUserToTicketEvent;
+import dev.zorbyte.amaranth.tickets.AddUserToTicketEvent;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

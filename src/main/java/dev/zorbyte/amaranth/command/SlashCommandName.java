@@ -1,10 +1,9 @@
-package dev.zorbyte.amaranth.core.command;
-
-import lombok.NonNull;
+package dev.zorbyte.amaranth.command;
 
 import java.util.Objects;
 
 import jakarta.annotation.Nullable;
+import lombok.NonNull;
 
 public record SlashCommandName(@NonNull String root, @Nullable String group, @Nullable String subcommand) {
   public SlashCommandName(String root) { this(root, null, null); }
