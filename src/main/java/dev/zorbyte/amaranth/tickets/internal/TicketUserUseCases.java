@@ -3,14 +3,14 @@ package dev.zorbyte.amaranth.tickets.internal;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import dev.zorbyte.amaranth.tickets.AddUserToTicketEvent;
+import dev.zorbyte.amaranth.tickets.UserAddedToTicket;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
 public class TicketUserUseCases {
   @EventListener
-  private void userAddedToTicket(AddUserToTicketEvent event) throws UnsupportedOperationException {
+  private void userAddedToTicket(UserAddedToTicket event) throws UnsupportedOperationException {
     // We are going to try and dispatch business logic to listeners.
     // This is going to be especially handy for TransactionalEventListeners
     // to be employed in future, plus we can leverege Spring's Async feature
