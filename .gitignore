@@ -42,3 +42,4 @@ build/
 .evfevent
 
 application-dev.yml
+/bin/

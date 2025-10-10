@@ -1,0 +1,80 @@
+package dev.zorbyte.amaranth.core.command;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import io.micrometer.common.lang.Nullable;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+
+@Slf4j
+@Service
+public class CommandRegistrar {
+  @Autowired
+  private JDA jda;
+
+  @Autowired
+  private List<SlashCommand> slashCommands;
+
+  @Autowired
+  private List<SlashCommand.Subcommand> subcommands;
+
+  /*
+   * Bulk overwrites commands for a guild.
+   *
+   * This is now idempotent, so it is safe to use this even when only 1 command is
+   * changed/added/removed.
+   */
+  public void uploadGuildSlashCommands(long guildID) {
+    final List<SlashCommandData> requests = slashCommands.stream().map(SlashCommand::data).toList();
+
+    jda.getGuildById(guildID)
+        .updateCommands()
+        .addCommands(requests)
+        .queue(
+            cmds -> log.info("Uploaded commands to discord guild ({}).", guildID),
+            e -> log.error("An error occurred while uploading commands to a discord guild ({}):", guildID, e)
+        );
+  }
+
+  /*
+   * Bulk overwrites commands.
+   *
+   * This is now idempotent, so it is safe to use this even when only 1 command is
+   * changed/added/removed.
+   */
+  public void uploadGlobalSlashCommands() {
+    log.info("Uploading global application commands to Discord...");
+    final List<SlashCommandData> requests = slashCommands.stream().map(SlashCommand::data).toList();
+
+    jda.updateCommands()
+        .addCommands(requests)
+        .queue(
+            cmds -> log.info("Succesfuly uploaded global application commands to discord."),
+            e -> log.error("An error occurred while uploading global application commands to Discord.", e)
+        );
+  }
+
+  public Optional<BaseSlashCommand> getSlashCommand(
+      @NonNull String name,
+      @Nullable String group,
+      @Nullable String subcommand
+  ) {
+    // Filter out all slash commands that don't match the name this event is for.
+    return slashCommands.stream()
+        .filter(slashCmd -> slashCmd.name().root().equals(name))
+        .findFirst()
+        .flatMap(slashCmd -> {
+          if (!slashCmd.hasSubcommands()) return Optional.of(slashCmd);
+
+          return subcommands.stream()
+              .filter(subCmd -> subCmd.name().equals(new SlashCommandName(name, group, subcommand)))
+              .findFirst();
+        });
+  }
+}

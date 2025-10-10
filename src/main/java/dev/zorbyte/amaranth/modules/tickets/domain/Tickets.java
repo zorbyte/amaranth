@@ -1,4 +1,4 @@
-package dev.zorbyte.amaranth.features.tickets;
+package dev.zorbyte.amaranth.modules.tickets.domain;
 
 import org.springframework.data.repository.CrudRepository;
 

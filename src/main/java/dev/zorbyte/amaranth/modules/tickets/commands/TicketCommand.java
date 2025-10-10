@@ -1,11 +1,13 @@
-package dev.zorbyte.amaranth.features.tickets;
+package dev.zorbyte.amaranth.modules.tickets.commands;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import dev.zorbyte.amaranth.discord.SlashCommand;
+import dev.zorbyte.amaranth.core.command.SlashCommand;
+import dev.zorbyte.amaranth.modules.tickets.domain.Ticket;
+import dev.zorbyte.amaranth.modules.tickets.domain.Tickets;
 import jakarta.transaction.Transactional;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.User;

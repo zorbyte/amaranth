@@ -1,8 +1,8 @@
-package dev.zorbyte.amaranth.features.base;
+package dev.zorbyte.amaranth.modules.bot;
 
 import org.springframework.stereotype.Component;
 
-import dev.zorbyte.amaranth.discord.SlashCommand;
+import dev.zorbyte.amaranth.core.command.SlashCommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.*;
 
