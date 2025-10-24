@@ -1,25 +1,29 @@
 package dev.zorbyte.amaranth.tickets.commands;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import dev.zorbyte.amaranth.command.SlashCommand;
 import dev.zorbyte.amaranth.tickets.Ticket;
 import dev.zorbyte.amaranth.tickets.Tickets;
 import jakarta.transaction.Transactional;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionContextType;
-import net.dv8tion.jda.api.interactions.commands.*;
-import net.dv8tion.jda.api.interactions.commands.build.*;
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
+import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
+import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
 @Component
 public class TicketCommand implements SlashCommand {
-  @Autowired
-  private Tickets tickets;
+  private final Tickets tickets;
 
   @Override
   public SlashCommandData data() {
@@ -81,7 +85,7 @@ public class TicketCommand implements SlashCommand {
   public void handle(SlashCommandInteractionEvent event) {
     // FIXME: Fix this massive abomination to not be awful.
     // Most of this is jsut test code anyway.
-    log.info("Executing ticket command.");
+    LOG.info("Executing ticket command.");
     event.deferReply().queue();
     if (event.getSubcommandName().equals("create")) {
       User user = event.getUser();

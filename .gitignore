@@ -1,4 +1,5 @@
 .env
+.env.test
 
 HELP.md
 target/
@@ -43,3 +44,7 @@ build/
 
 application-dev.yml
 /bin/
+
+.gradle/
+
+.DS_Store

@@ -1,31 +1,26 @@
 package dev.zorbyte.amaranth.command.internal;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import dev.zorbyte.amaranth.command.BaseSlashCommand;
 import dev.zorbyte.amaranth.command.SlashCommand;
 import dev.zorbyte.amaranth.command.SlashCommandName;
 import io.micrometer.common.lang.Nullable;
+import java.util.List;
+import java.util.Optional;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Slf4j
 @Service
 class CommandRegistrar {
-  @Autowired
   private JDA jda;
 
-  @Autowired
   private List<SlashCommand> slashCommands;
-
-  @Autowired
-  private List<SlashCommand.Subcommand> subcommands;
+  private final List<SlashCommand.Subcommand> subcommands;
 
   /*
    * Bulk overwrites commands for a guild.
@@ -40,7 +35,7 @@ class CommandRegistrar {
         .updateCommands()
         .addCommands(requests)
         .queue(
-            cmds -> log.info("Uploaded commands to discord guild ({}).", guildID),
+            _ -> log.info("Uploaded commands to discord guild ({}).", guildID),
             e -> log.error("An error occurred while uploading commands to a discord guild ({}):", guildID, e)
         );
   }
@@ -58,7 +53,7 @@ class CommandRegistrar {
     jda.updateCommands()
         .addCommands(requests)
         .queue(
-            cmds -> log.info("Succesfuly uploaded global application commands to discord."),
+            _ -> log.info("Succesfuly uploaded global application commands to discord."),
             e -> log.error("An error occurred while uploading global application commands to Discord.", e)
         );
   }

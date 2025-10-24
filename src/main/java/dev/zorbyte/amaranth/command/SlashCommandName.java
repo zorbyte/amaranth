@@ -1,8 +1,7 @@
 package dev.zorbyte.amaranth.command;
 
-import java.util.Objects;
-
 import jakarta.annotation.Nullable;
+import java.util.Objects;
 import lombok.NonNull;
 
 public record SlashCommandName(@NonNull String root, @Nullable String group, @Nullable String subcommand) {

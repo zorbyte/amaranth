@@ -3,7 +3,16 @@ package dev.zorbyte.amaranth.command;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
+/**
+ * Interface for Discord slash commands. Extends BaseSlashCommand to provide
+ * command functionality.
+ */
 public interface SlashCommand extends BaseSlashCommand {
+  /**
+   * Gets the command data that defines this slash command.
+   *
+   * @return The slash command data
+   */
   SlashCommandData data();
 
   @Override
@@ -16,10 +25,13 @@ public interface SlashCommand extends BaseSlashCommand {
 
   @Override
   default void handle(SlashCommandInteractionEvent event) {
-    log.debug("Passing over execution of slash command handler for \"{}\"", event.getFullCommandName());
+    LOG.debug("Passing over execution of slash command handler for \"{}\"", event.getFullCommandName());
   }
 
-  // Acessible via SlashCommand.Subcommand
+  /**
+   * Interface for subcommands of a slash command. Implements BaseSlashCommand
+   * with default behavior for subcommands.
+   */
   public interface Subcommand extends BaseSlashCommand {
     @Override
     default boolean hasSubcommands() { return false; }

@@ -1,16 +1,8 @@
 package dev.zorbyte.amaranth.bot.internal;
 
+import jakarta.annotation.PreDestroy;
 import java.time.Duration;
 import java.util.EnumSet;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.PayloadApplicationEvent;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.event.ContextClosedEvent;
-import org.springframework.context.event.EventListener;
-
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -21,6 +13,12 @@ import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.PayloadApplicationEvent;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
 
 @Slf4j
 @Configuration
@@ -43,6 +41,7 @@ class JDAConfig {
 
   @Value("${discord.token}")
   private String token;
+
   @Value("${discord.activity}")
   private String status;
 
@@ -84,8 +83,8 @@ class JDAConfig {
     log.error("An exception event has been thorwn by JDA:", event.getCause());
   }
 
-  @EventListener
-  private void onShutdown(ContextClosedEvent event) throws InterruptedException {
+  @PreDestroy
+  private void onShutdown() throws InterruptedException {
     try {
       // Initial shutdown, allowing for some RestActions to still go through
       log.info("Shutting down JDA instance...");

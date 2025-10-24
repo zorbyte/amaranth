@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+  # Disable docker-compose for tests since we're using H2
+  docker:
+    compose:
+      enabled: false
+
+discord:
+  token: ${BOT_TOKEN:default-test-token}
+  testGuildID: ${TEST_GUILD_ID:000000000000000000}
+  activity: Running tests

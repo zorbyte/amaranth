@@ -1,12 +1,11 @@
 package dev.zorbyte.amaranth.bot.commands;
 
-import org.springframework.stereotype.Component;
-
 import dev.zorbyte.amaranth.command.SlashCommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import org.springframework.stereotype.Component;
 
 @Component
 public class GreetCommand implements SlashCommand {

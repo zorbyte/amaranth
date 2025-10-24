@@ -1,19 +1,18 @@
 package dev.zorbyte.amaranth.command.internal;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import dev.zorbyte.amaranth.command.BaseSlashCommand;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import dev.zorbyte.amaranth.command.BaseSlashCommand;
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-
 @Slf4j
+@RequiredArgsConstructor
 @Component
 class InteractionDispatcher {
-  @Autowired
-  private CommandRegistrar commandRegistry;
+  private final CommandRegistrar commandRegistry;
 
   @EventListener(SlashCommandInteractionEvent.class)
   private void onSlashCommandInteraction(SlashCommandInteractionEvent event) {

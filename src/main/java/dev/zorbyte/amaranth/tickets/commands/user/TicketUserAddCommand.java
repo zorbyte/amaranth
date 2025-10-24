@@ -1,11 +1,10 @@
 package dev.zorbyte.amaranth.tickets.commands.user;
 
-import org.springframework.stereotype.Component;
-
 import dev.zorbyte.amaranth.command.SlashCommand;
 import dev.zorbyte.amaranth.command.SlashCommandName;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import org.springframework.stereotype.Component;
 
 @Component
 public class TicketUserAddCommand implements SlashCommand.Subcommand {

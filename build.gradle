@@ -1,0 +1,113 @@
+plugins {
+    id 'java'
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+    id 'checkstyle'
+    alias(libs.plugins.spotless)
+}
+
+group = 'dev.zorbyte'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.spring.io/milestone'
+        mavenContent {
+            releasesOnly()
+        }
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+// Common JDA exclusions
+ext.jdaExclusions = {
+    exclude group: 'club.minnced', module: 'opus-java'
+    exclude group: 'com.google.crypto.tink', module: 'tink'
+}
+
+dependencies {
+    // Core Spring Boot
+    implementation platform(libs.spring.boot.dependencies)
+    implementation libs.bundles.spring.boot.base
+    developmentOnly libs.spring.boot.devtools
+
+    // Spring Modulith
+    implementation libs.spring.modulith.starter.jpa
+    testImplementation libs.spring.modulith.starter.test
+    testImplementation libs.spring.modulith.junit
+
+    // Runtime and infrastructure
+    runtimeOnly libs.postgresql
+    runtimeOnly libs.spring.boot.docker.compose
+
+    // Discord integration
+    implementation(libs.jda, jdaExclusions)
+
+    // Development tools
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+
+    // Testing
+    testImplementation libs.bundles.testing
+    testImplementation(libs.jda, jdaExclusions)
+}
+
+// Helper function to load environment variables from .env
+def loadEnvFile(Properties props) {
+    def envFile = file('.env')
+    if (envFile.exists()) {
+        envFile.withInputStream { stream ->
+            props.load(stream)
+        }
+    }
+    return props
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    systemProperty 'spring.profiles.active', 'test'
+
+    def props = loadEnvFile(new Properties())
+    props.each { key, value ->
+        environment(key, value)
+    }
+}
+
+bootRun {
+    systemProperty 'spring.profiles.active', 'dev'
+
+    def props = loadEnvFile(new Properties())
+    props.each { key, value ->
+        environment(key, value)
+    }
+}
+
+checkstyle {
+    toolVersion = libs.versions.checkstyle.get()
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+}
+
+spotless {
+    java {
+        importOrder()
+        removeUnusedImports()
+        eclipse().configFile('eclipseFormatter.xml')
+        formatAnnotations()
+        toggleOffOn()
+        indentWithSpaces(2)
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
