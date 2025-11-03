@@ -1,11 +1,11 @@
-rootProject.name = 'amaranth'
+rootProject.name = "amaranth"
 
 // Enable type-safe project accessors
-enableFeaturePreview('TYPESAFE_PROJECT_ACCESSORS')
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 // Enable version catalogs
 dependencyResolutionManagement {
-    versionCatalogs {
-        libs {}
-    }
+  versionCatalogs {
+    libs {}
+  }
 }

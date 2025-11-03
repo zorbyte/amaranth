@@ -3,16 +3,17 @@ spring-boot = "4.0.0-M3"
 spring-dependency-management = "1.1.3"
 spring-modulith = "2.0.0-M3"
 spotless = "6.22.0"
-lombok = "1.18.42"
+lombok = "9.0.0"
 jda = "6.0.0"
 testcontainers = "1.19.1"
 h2 = "2.2.224"
 mockito = "5.7.0"
 assertj = "3.24.2"
 postgresql = "42.7.1"
-checkstyle = "10.12.5"
+checkstyle = "12.1.1"
 
 [libraries]
+# Spring Boot.
 spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
 spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
@@ -21,15 +22,13 @@ spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools
 spring-boot-docker-compose = { module = "org.springframework.boot:spring-boot-docker-compose" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 
-# Spring Modulith
+# Spring Modulith.
 spring-modulith-starter-jpa = { module = "org.springframework.modulith:spring-modulith-starter-jpa", version.ref = "spring-modulith" }
 spring-modulith-starter-test = { module = "org.springframework.modulith:spring-modulith-starter-test", version.ref = "spring-modulith" }
 spring-modulith-junit = { module = "org.springframework.modulith:spring-modulith-junit", version.ref = "spring-modulith" }
 
-jda = { module = "net.dv8tion:JDA", version.ref = "jda" }
-lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
-
 # Infrastructure
+jda = { module = "net.dv8tion:JDA", version.ref = "jda" }
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 
 # Test dependencies
@@ -40,8 +39,14 @@ mockito-junit = { module = "org.mockito:mockito-junit-jupiter", version.ref = "m
 assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 
 [plugins]
+# Spring
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+
+# Utilitilies.
+lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
+
+# Linting
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 
 [bundles]
@@ -50,6 +55,7 @@ spring-boot-base = [
   "spring-boot-starter-actuator",
   "spring-boot-starter-data-jpa",
 ]
+
 testing = [
   "spring-boot-starter-test",
   "testcontainers-junit-jupiter",

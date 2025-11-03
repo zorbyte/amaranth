@@ -1,19 +1,9 @@
 package dev.zorbyte.amaranth.tickets;
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import java.util.*;
+import lombok.*;
 
 @Getter
 @Setter
@@ -21,9 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 public class Ticket {
-  @Id()
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  @EmbeddedId
+  private TicketId id;
+
+  private int localId;
+
+  private long creatorId;
 
   @Nonnull
   private String subject;
@@ -35,6 +28,5 @@ public class Ticket {
   )
   private List<TicketUser> users = new ArrayList<>();
 
-  private long creatorId;
-  private long channelId;
+  public record TicketId(long guildId, long channelId) {}
 }

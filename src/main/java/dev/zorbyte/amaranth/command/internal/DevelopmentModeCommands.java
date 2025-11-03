@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Profile("dev")
 @RequiredArgsConstructor
 class DevelopmentModeCommands {
-  @Value("${discord.testGuildID:0}")
+  @Value("${discord.testGuildID}")
   private long testGuildID;
 
   private final CommandRegistrar commandRegistry;

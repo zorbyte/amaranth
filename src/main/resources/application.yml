@@ -13,7 +13,7 @@ spring:
     compose:
       enabled: false
   profiles:
-    default: dev
+    active: dev
 discord:
   testGuildID: ${TEST_GUILD_ID}
   token: ${BOT_TOKEN}

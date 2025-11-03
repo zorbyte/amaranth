@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
+    username: test
     password:
     driver-class-name: org.h2.Driver
   jpa:
@@ -16,6 +16,7 @@ spring:
       enabled: false
 
 discord:
-  token: ${BOT_TOKEN:default-test-token}
-  testGuildID: ${TEST_GUILD_ID:000000000000000000}
-  activity: Running tests
+  token: ${BOT_TOKEN}
+  testGuildID: ${TEST_GUILD_ID}
+  testFailuresGuildID: ${TEST_FAILURES_GUILD_ID}
+  activity: Running tests.

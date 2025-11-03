@@ -13,5 +13,10 @@
     "name": "discord.activity",
     "type": "java.lang.String",
     "description": "The status to display under the bot user."
+  },
+  {
+    "name": "discord.testFailuresGuildID",
+    "type": "java.lang.Long",
+    "description": "A description for 'discord.testFailuresGuildID'"
   }
 ]}

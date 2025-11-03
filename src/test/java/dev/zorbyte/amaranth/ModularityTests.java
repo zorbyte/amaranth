@@ -5,12 +5,10 @@ import org.springframework.modulith.core.ApplicationModules;
 import org.springframework.modulith.docs.Documenter;
 
 class ModularityTests {
-  ApplicationModules modules = ApplicationModules.of(Application.class);
+  private ApplicationModules modules = ApplicationModules.of(Application.class);
 
   @Test
-  void verifyModularity() {
-    modules.verify();
-  }
+  void verifyModularity() { modules.verify(); }
 
   @Test
   void writeDocumentationSnippets() { // NOSONAR java:S2699

@@ -6,7 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract interface BaseSlashCommand {
-  Logger LOG = LoggerFactory.getLogger(SlashCommand.class);
+  @SuppressWarnings("checkstyle:ConstantNameCheck")
+  Logger log = LoggerFactory.getLogger(BaseSlashCommand.class);
 
   /**
    * Gets the name of this slash command.

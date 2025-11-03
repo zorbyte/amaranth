@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<!DOCTYPE module PUBLIC "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
+<!DOCTYPE module PUBLIC
+          "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+          "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
     <property name="charset" value="UTF-8" />
@@ -7,6 +9,11 @@
     <property name="fileExtensions" value="java, properties, xml" />
 
     <module name="TreeWalker">
+        <!-- Allow @SuppressWarning -->
+        <module name="SuppressWarningsHolder" />
+        <module name="MemberName" />
+        <module name="NoWhitespaceAfter" />
+
         <!-- Annotations -->
         <module name="AnnotationLocation" />
         <module name="MissingOverride" />
@@ -27,7 +34,6 @@
         <module name="SimplifyBooleanReturn" />
 
         <!-- Imports -->
-        <module name="AvoidStarImport" />
         <module name="IllegalImport" />
         <module name="RedundantImport" />
         <module name="UnusedImports" />
@@ -54,4 +60,6 @@
         <module name="StaticVariableName" />
         <module name="TypeName" />
     </module>
+
+    <module name="SuppressWarningsFilter"/>
 </module>

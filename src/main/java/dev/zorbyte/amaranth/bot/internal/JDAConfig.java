@@ -19,8 +19,11 @@ import org.springframework.context.PayloadApplicationEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 @Slf4j
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @Configuration
 class JDAConfig {
   private static final EnumSet<GatewayIntent> ENABLED_GATEWAY_INTENTS = EnumSet.of(
@@ -65,6 +68,7 @@ class JDAConfig {
             }
           })
           .build();
+
       return jda;
     } catch (Exception e) {
       log.error("An exception occurred while setting up the JDA bean: ", e);

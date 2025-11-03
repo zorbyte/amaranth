@@ -3,7 +3,7 @@ package dev.zorbyte.amaranth.command.internal;
 import dev.zorbyte.amaranth.command.BaseSlashCommand;
 import dev.zorbyte.amaranth.command.SlashCommand;
 import dev.zorbyte.amaranth.command.SlashCommandName;
-import io.micrometer.common.lang.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 import lombok.NonNull;
@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 class CommandRegistrar {
-  private JDA jda;
+  private final JDA jda;
 
-  private List<SlashCommand> slashCommands;
+  private final List<SlashCommand> slashCommands;
   private final List<SlashCommand.Subcommand> subcommands;
 
   /*

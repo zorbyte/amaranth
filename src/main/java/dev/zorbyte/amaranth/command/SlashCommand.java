@@ -25,7 +25,7 @@ public interface SlashCommand extends BaseSlashCommand {
 
   @Override
   default void handle(SlashCommandInteractionEvent event) {
-    LOG.debug("Passing over execution of slash command handler for \"{}\"", event.getFullCommandName());
+    log.debug("Passing over execution of slash command handler for \"{}\"", event.getFullCommandName());
   }
 
   /**
