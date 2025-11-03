@@ -2,8 +2,6 @@ package dev.zorbyte.amaranth.tickets.internal;
 
 import static org.junit.Assert.assertThrows;
 
-import org.aspectj.lang.annotation.Before;
-
 import dev.zorbyte.amaranth.command.CommandExecutionException;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
