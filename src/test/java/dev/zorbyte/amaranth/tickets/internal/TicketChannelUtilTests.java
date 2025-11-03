@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThrows;
 import org.aspectj.lang.annotation.Before;
 
 import dev.zorbyte.amaranth.command.CommandExecutionException;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.channel.concrete.Category;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@Slf4j
 @SpringBootTest
 @TestInstance(Lifecycle.PER_CLASS)
 class TicketChannelUtilTests {
@@ -38,7 +40,10 @@ class TicketChannelUtilTests {
   private TextChannel ticketChannel;
 
   @BeforeAll
-  void ensureAllGuildsLoaded() throws InterruptedException { jda.awaitReady(); }
+  void ensureAllGuildsLoaded() throws InterruptedException {
+    log.info("Awaiting ready event before testing Discord API calls so that all guilds are cached");
+    jda.awaitReady();
+  }
 
   @Test
   @DisplayName("Throws a CommandExecutionError when the `MANAGE_CHANNEL` permission is **not** present.")
