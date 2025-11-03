@@ -20,6 +20,6 @@ public class CreateTicket implements SlashCommand.Subcommand {
     var guildId = event.getGuild().getIdLong();
     var category = ticketChannelUtil.getOrCreateTicketCategory(event.getGuild().getIdLong());
     var ticketChannel = ticketChannelUtil.createTicketChannel(category, guildId, 0, "ticket");
-
+    // TODO: Put this into a service & do the rest.
   }
 }
