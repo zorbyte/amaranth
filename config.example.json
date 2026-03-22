@@ -1,0 +1,15 @@
+{
+  "dev_mode": true,
+  "log_level": "DEBUG",
+  "bot": {
+    "log_level": "DEBUG",
+    "gateway_log_level": "INFO",
+    "guild_id": "",
+    "administrators": [""],
+    "moderators": []
+  },
+  "database": {
+    "log_level": "DEBUG",
+    "database": "amaranth.db"
+  }
+}
