@@ -12,7 +12,7 @@ type Category struct {
 	ID      uint64       `bun:",pk,autoincrement"`
 	GuildID snowflake.ID `bun:",notnull"`
 
-	Roles []*Role `bun:"rel:has-many,join:id=category_id"`
+	Roles []Role `bun:"rel:has-many,join:id=category_id"`
 
 	/* Option Display Details */
 

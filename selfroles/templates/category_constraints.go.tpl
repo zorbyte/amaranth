@@ -11,8 +11,8 @@
      * view these if they press the edit accessory button.
      */ -}}
 - {{ $UIEmojis.Role }} Requires Roles:{{ " " }}
-{{- $rolesSize := len .Category.Roles }}
-{{- $idx, $role range := .Category.Roles -}}
+{{- $rolesSize := len .Category.RequiredRoleIDs }}
+{{- $idx, $role range := .Category.RequiredRoleIDs -}}
   <@&{{ $role.ID }}>
   {{- if and (gt $idx 4) (eq $idx (sub $rolesLen 1)) -}}
     ({{ sub $rolesSize (add $idx 1) }} more...)
